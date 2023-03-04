@@ -23,4 +23,6 @@ router.patch('/:id', completedOrder);
 
 router.delete('/:id', cancelledOrder);
 
-module.exports = { orderRouter: router() };
+module.exports = {
+  orderRouter: router,
+};

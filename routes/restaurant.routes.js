@@ -42,4 +42,6 @@ router.patch('/:id', updateRestaurantValidation, updateRestaurant);
 
 router.delete('/:id', deleteRestaurant);
 
-module.exports = { restaurantRouter: router() };
+module.exports = {
+  restaurantRouter: router,
+};

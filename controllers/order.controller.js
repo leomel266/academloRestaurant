@@ -1,6 +1,7 @@
 const { Meal } = require('../models/meal.model');
 const { Order } = require('../models/order.model');
 const { Restaurant } = require('../models/restaurant.model');
+const catchAsync = require('../utils/catchAsync');
 
 exports.newOrder = catchAsync(async (req, res, next) => {
   const { quantity } = req.body;

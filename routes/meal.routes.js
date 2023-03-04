@@ -30,4 +30,6 @@ router.patch('/:id', updateMealsValidation, validExistMeal, updateMeals);
 
 router.delete('/:id', validExistMeal, disableMeals);
 
-module.exports = { mealRouter: router() };
+module.exports = {
+  mealRouter: router,
+};
