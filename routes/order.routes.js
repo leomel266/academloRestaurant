@@ -6,7 +6,7 @@ const {
   cancelledOrder,
 } = require('../controllers/order.controller');
 const { protect } = require('../middlewares/auth.middlewares');
-const { validExistMeals } = require('../middlewares/meal.middlewares');
+const { validExistMeal } = require('../middlewares/meal.middlewares');
 const {
   createOrderValidation,
 } = require('../middlewares/validation.middlewares');
@@ -15,7 +15,7 @@ const router = Router();
 
 router.use(protect);
 
-router.post('/', createOrderValidation, validExistMeals, newOrder);
+router.post('/', createOrderValidation, validExistMeal, newOrder);
 
 router.get('/me', allOrderUser);
 

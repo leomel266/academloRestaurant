@@ -4,10 +4,10 @@ const {
   disableMeals,
   updateMeals,
   findMeals,
-  newMeals,
+  newMeal,
 } = require('../controllers/meals.controller');
 const { protect } = require('../middlewares/auth.middlewares');
-const { validExistMeals } = require('../middlewares/meal.middlewares');
+const { validExistMeal } = require('../middlewares/meal.middlewares');
 const {
   validExistRestaurant,
 } = require('../middlewares/restaurants.middlewares');
@@ -20,14 +20,14 @@ const router = Router();
 
 router.get('/', findAllMeals);
 
-router.get('/:id', validExistMeals, findMeals);
+router.get('/:id', validExistMeal, findMeals);
 
 router.use(protect);
 
-router.post('/:id', createMealsValidation, validExistRestaurant, newMeals);
+router.post('/:id', createMealsValidation, validExistRestaurant, newMeal);
 
-router.patch('/:id', updateMealsValidation, validExistMeals, updateMeals);
+router.patch('/:id', updateMealsValidation, validExistMeal, updateMeals);
 
-router.delete('/:id', validExistMeals, disableMeals);
+router.delete('/:id', validExistMeal, disableMeals);
 
 module.exports = { mealRouter: router() };

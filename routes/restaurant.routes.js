@@ -10,13 +10,13 @@ const {
   deleteRestaurant,
 } = require('../controllers/restaurants.controller');
 
-const { protect } = require('../middlewares/auth.middleware');
+const { protect } = require('../middlewares/auth.middlewares');
 const {
   createRestaurantValidation,
   createReviewValidation,
   updateReviewValidation,
   updateRestaurantValidation,
-} = require('../middlewares/valitation.middleware');
+} = require('../middlewares/validation.middlewares');
 
 const router = Router();
 
