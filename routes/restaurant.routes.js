@@ -31,7 +31,7 @@ router.post('/', createRestaurantValidation, createRestaurant);
 router.post(
   '/reviews/:id',
   createReviewValidation,
-  restricTo(admin),
+  restricTo('admin'),
   newReview
 );
 
@@ -41,12 +41,12 @@ router.patch(
   updateReview
 );
 
-router.delete('/reviews/:restaurantId/:id', restricTo(admin), deleteReview);
+router.delete('/reviews/:restaurantId/:id', restricTo('admin'), deleteReview);
 
 router.patch(
   '/:id',
   updateRestaurantValidation,
-  restricTo(admin),
+  restricTo('admin'),
   updateRestaurant
 );
 
