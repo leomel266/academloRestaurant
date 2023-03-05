@@ -26,9 +26,9 @@ const User = db.define('user', {
     defaultValue: 'normal',
   },
   status: {
-    type: DataTypes.BOOLEAN,
+    type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: true,
+    defaultValue: 'available',
   },
 });
 
