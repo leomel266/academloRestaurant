@@ -10,7 +10,7 @@ const {
   deleteRestaurant,
 } = require('../controllers/restaurants.controller');
 
-const { protect } = require('../middlewares/auth.middlewares');
+const { protect, restricTo } = require('../middlewares/auth.middlewares');
 const {
   createRestaurantValidation,
   createReviewValidation,
@@ -28,7 +28,12 @@ router.use(protect);
 
 router.post('/', createRestaurantValidation, createRestaurant);
 
-router.post('/reviews/:id', createReviewValidation, newReview);
+router.post(
+  '/reviews/:id',
+  createReviewValidation,
+  restricTo(admin),
+  newReview
+);
 
 router.patch(
   '/reviews/:restaurantId/:id',
@@ -36,9 +41,14 @@ router.patch(
   updateReview
 );
 
-router.delete('/reviews/:restaurantId/:id', deleteReview);
+router.delete('/reviews/:restaurantId/:id', restricTo(admin), deleteReview);
 
-router.patch('/:id', updateRestaurantValidation, updateRestaurant);
+router.patch(
+  '/:id',
+  updateRestaurantValidation,
+  restricTo(admin),
+  updateRestaurant
+);
 
 router.delete('/:id', deleteRestaurant);
 

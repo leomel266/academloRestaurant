@@ -5,7 +5,7 @@ const generateJWT = require('../utils/jwt');
 const AppError = require('../utils/appError');
 
 exports.createUser = catchAsync(async (req, res, next) => {
-  const { username, email, password, role = 'client' } = req.body;
+  const { username, email, password, role } = req.body;
 
   //1. Crear una instancia de la clase User
   const user = new User({

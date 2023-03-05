@@ -2,6 +2,9 @@ const User = require('../models/user.model');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const bcrypt = require('bcryptjs');
+const { Meal } = require('../models/meal.model');
+const { Restaurant } = require('../models/restaurant.model');
+const { Order } = require('../models/order.model');
 
 exports.findUsers = catchAsync(async (req, res, next) => {
   const users = await User.findAll({
@@ -48,7 +51,7 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
   const { user } = req;
   //4. ACTUALIZAR EL ESTADO DEL PRODUCTO FALSE
   await user.update({
-    status: false,
+    status: 'disable',
   });
   // await product.destroy() para eliminar
 
@@ -79,5 +82,64 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     message: 'The user password was updated successfully',
+  });
+});
+
+exports.totalUserOrder = catchAsync(async (req, res, next) => {
+  const { sessionUser } = req;
+
+  const allOrder = await Orders.findAll({
+    where: {
+      userId: sessionUser.id,
+    },
+    include: [
+      {
+        model: Meal,
+        attributes: { exclude: ['createdAt', 'updatedAt', 'status'] },
+        include: [
+          {
+            model: Restaurant,
+            attributes: { exclude: ['createdAt', 'updatedAt', 'status'] },
+          },
+        ],
+      },
+    ],
+  });
+
+  res.status(200).json({
+    status: 'success',
+    message: 'all Order find successfully',
+    allOrder,
+  });
+});
+
+exports.userOrder = catchAsync(async (req, res, next) => {
+  const { sessionUser } = req;
+
+  const { id } = req.params;
+
+  const order = await Order.findOne({
+    where: {
+      id,
+      userId: sessionUser.id,
+    },
+    include: [
+      {
+        model: Meal,
+        attributes: { exclude: ['createdAt', 'updatedAt', 'status'] },
+        include: [
+          {
+            model: Restaurant,
+            attributes: { exclude: ['createdAt', 'updatedAt', 'status'] },
+          },
+        ],
+      },
+    ],
+  });
+
+  res.status(200).json({
+    status: 'success',
+    message: 'all Order find successfully',
+    order,
   });
 });
